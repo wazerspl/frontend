@@ -7,22 +7,22 @@ var $ = require('gulp-load-plugins')({
 });
 
 gulp.task('styles', ['wiredep', 'injector:css:preprocessor'], function () {
-  return gulp.src(['src/app/index.scss', 'src/app/vendor.scss'])
-    .pipe($.sass({style: 'expanded'}))
+  return gulp.src(['src/app/index.styl', 'src/app/vendor.styl'])
+    .pipe($.stylus())
     .on('error', function handleError(err) {
       console.error(err.toString());
       this.emit('end');
     })
-    .pipe($.autoprefixer('last 1 version'))
+    .pipe($.autoprefixer())
     .pipe(gulp.dest('.tmp/app/'));
 });
 
 gulp.task('injector:css:preprocessor', function () {
-  return gulp.src('src/app/index.scss')
+  return gulp.src('src/app/index.styl')
     .pipe($.inject(gulp.src([
-        'src/{app,components}/**/*.scss',
-        '!src/app/index.scss',
-        '!src/app/vendor.scss' 
+        'src/{app,components}/**/*.styl',
+        '!src/app/index.styl',
+        '!src/app/vendor.styl' 
       ], {read: false}), {
       transform: function(filePath) {
         filePath = filePath.replace('src/app/', '');
@@ -48,27 +48,27 @@ gulp.task('injector:css', ['styles'], function () {
     .pipe(gulp.dest('src/'));
 });
 
-gulp.task('jshint', function () {
+gulp.task('scripts', function () {
   return gulp.src('src/{app,components}/**/*.js')
     .pipe($.jshint())
     .pipe($.jshint.reporter('jshint-stylish'));
 });
 
-gulp.task('injector:js', ['jshint', 'injector:css'], function () {
-  return gulp.src('src/index.html')
+gulp.task('injector:js', ['scripts', 'injector:css'], function () {
+  return gulp.src(['src/index.html', '.tmp/index.html'])
     .pipe($.inject(gulp.src([
-        'src/{app,components}/**/*.js',
-        '!src/{app,components}/**/*.spec.js',
-        '!src/{app,components}/**/*.mock.js'
-      ]).pipe($.angularFilesort()), {
+      'src/{app,components}/**/*.js',
+      '!src/{app,components}/**/*.spec.js',
+      '!src/{app,components}/**/*.mock.js'
+    ]).pipe($.angularFilesort()), {
       ignorePath: 'src',
       addRootSlash: false
     }))
     .pipe(gulp.dest('src/'));
 });
 
-gulp.task('partials', function () {
-  return gulp.src('src/{app,components}/**/*.html')
+gulp.task('partials', ['consolidate'], function () {
+  return gulp.src(['src/{app,components}/**/*.html', '.tmp/{app,components}/**/*.html'])
     .pipe($.minifyHtml({
       empty: true,
       spare: true,
@@ -86,7 +86,7 @@ gulp.task('html', ['wiredep', 'injector:css', 'injector:js', 'partials'], functi
   var cssFilter = $.filter('**/*.css');
   var assets;
 
-  return gulp.src('src/*.html')
+  return gulp.src(['src/*.html', '.tmp/*.html'])
     .pipe($.inject(gulp.src('.tmp/inject/templateCacheHtml.js', {read: false}), {
       starttag: '<!-- inject:partials -->',
       ignorePath: '.tmp',
@@ -99,7 +99,6 @@ gulp.task('html', ['wiredep', 'injector:css', 'injector:js', 'partials'], functi
     .pipe($.uglify({preserveComments: $.uglifySaveLicense}))
     .pipe(jsFilter.restore())
     .pipe(cssFilter)
-    .pipe($.replace('bower_components/bootstrap-sass-official/assets/fonts/bootstrap','fonts'))
     .pipe($.csso())
     .pipe(cssFilter.restore())
     .pipe(assets.restore())

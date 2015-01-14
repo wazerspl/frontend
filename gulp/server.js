@@ -14,8 +14,6 @@ function browserSyncInit(baseDir, files, browser) {
   var routes = null;
   if(baseDir === 'src' || (util.isArray(baseDir) && baseDir.indexOf('src') !== -1)) {
     routes = {
-      // Should be '/bower_components': '../bower_components'
-      // Waiting for https://github.com/shakyShane/browser-sync/issues/308
       '/bower_components': 'bower_components'
     };
   }
@@ -34,14 +32,16 @@ function browserSyncInit(baseDir, files, browser) {
 
 gulp.task('serve', ['watch'], function () {
   browserSyncInit([
-    'src',
-    '.tmp'
+    '.tmp',
+    'src'
   ], [
     '.tmp/{app,components}/**/*.css',
+    'src/{app,components}/**/*.js',
     'src/assets/images/**/*',
+    '.tmp/*.html',
+    '.tmp/{app,components}/**/*.html',
     'src/*.html',
-    'src/{app,components}/**/*.html',
-    'src/{app,components}/**/*.js'
+    'src/{app,components}/**/*.html'
   ]);
 });
 
@@ -50,7 +50,7 @@ gulp.task('serve:dist', ['build'], function () {
 });
 
 gulp.task('serve:e2e', ['wiredep', 'injector:js', 'injector:css'], function () {
-  browserSyncInit(['src', '.tmp'], null, []);
+  browserSyncInit(['.tmp', 'src'], null, []);
 });
 
 gulp.task('serve:e2e-dist', ['build'], function () {

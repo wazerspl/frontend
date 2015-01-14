@@ -58,10 +58,17 @@ angular.module('frontend')
         'logo': 'ui-bootstrap.png'
       },
       {
-        'title': 'Sass (Node)',
-        'url': 'https://github.com/sass/node-sass',
-        'description': 'Node.js binding to libsass, the C version of the popular stylesheet preprocessor, Sass.',
-        'logo': 'node-sass.png'
+        'title': 'Stylus',
+        'url': 'http://learnboost.github.io/stylus/',
+        'description': 'Stylus is a revolutionary new language, providing an efficient, dynamic, and expressive way to generate CSS. Supporting both an indented syntax and regular CSS style.',
+        'logo': 'stylus.png'
+      },
+      {
+        'key': 'jade',
+        'title': 'Jade',
+        'url': 'http://jade-lang.com/',
+        'description': 'Jade is a high performance template engine heavily influenced by Haml and implemented with JavaScript for node.',
+        'logo': 'jade.png'
       }
     ];
     angular.forEach($scope.awesomeThings, function(awesomeThing) {

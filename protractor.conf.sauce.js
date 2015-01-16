@@ -8,9 +8,10 @@ exports.config = {
 
   // Capabilities to be passed to the webdriver instance.
   capabilities: {
-    'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+    'tunnel-identifier': process.env.TRAVIS_BUILD_NUMBER,
     'build': process.env.TRAVIS_BUILD_NUMBER,
-    'browserName': 'chrome'
+    'name': "Job "+process.env.TRAVIS_JOB_NUMBER+" on "+process.env.BROWSER,
+    'browserName': process.env.BROWSER
   },
 
   // Spec patterns are relative to the current working directly when

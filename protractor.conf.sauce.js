@@ -8,7 +8,7 @@ exports.config = {
 
   // Capabilities to be passed to the webdriver instance.
   capabilities: {
-    'tunnel-identifier': process.env.TRAVIS_BUILD_NUMBER,
+    'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
     'build': process.env.TRAVIS_BUILD_NUMBER,
     'name': "Job "+process.env.TRAVIS_JOB_NUMBER+" on "+process.env.BROWSER,
     'browserName': process.env.BROWSER

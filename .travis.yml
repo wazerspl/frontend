@@ -1,7 +1,17 @@
 language: node_js
 node_js:
   - "0.10"
+env:
+  global:
+    - secure: 2IAnJ5ODHes5KM+SEjleJ3r0xIOMUoLGINXhzBQDa+szcKEvk/Q7/yzQ9y2p4eFc/McdnD+4wjkJ8Or9fx1ggzFpbc/lAs9V/UF7trJYjbALOQ9+kPyv9VREIQqIFcruja2m/ODwrcR/OWc2GDzpiR6LUEEjPkUJ0t1tMQ79TW8=
+    - secure: LBkMBjfSwnQTfYNaEQVHV1QqW21Qnu0kJsnCSLVOF0C/EbY+HRdCBlGLVoGlLo+Zodv0Dd2pXg6zNpE2I0zII4S38CqjxGiXz/rOPoJiKQeNhspwqDzybSUkAYVqmArS6VKItA0gIkLeT1W3q200fno9COblr4tXJ4PG1xnNIy4=
+  matrix:
+    - "TEST_SUITE=saucelabs"
+    - "TEST_SUITE=karma"
+addons:
+  sauce_connect: true
 before_script:
   - npm install -g bower
   - bower install
+script: npm run $TEST_SUITE
 

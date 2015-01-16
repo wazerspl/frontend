@@ -46,6 +46,7 @@
   },
   "scripts": {
     "test": "./node_modules/.bin/gulp test",
-    "protractor": "./node_modules/.bin/gulp protractor"
+    "protractor": "./node_modules/.bin/gulp protractor",
+    "saucelabs": "./node_modules/.bin/gulp saucelabs"
   }
 }

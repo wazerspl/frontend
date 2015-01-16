@@ -28,3 +28,4 @@ gulp.task('test', function() {
       throw err;
     });
 });
+gulp.task('karma', ['test']);

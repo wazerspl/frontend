@@ -26,4 +26,23 @@ Frontend for wazers.pl
 
         npm install
 
+1. Make sure that both unit and end-to-end tests passes:
+
+        gulp karma
+        gulp protractor
+
+1. Now you are ready to make some changes. Remember about writing tests :)
+
 ## Tools used
+
+- [AngularJS](https://angularjs.org/)
+- [jQuery](http://jquery.com/)
+- [Bootstrap](http://getbootstrap.com/)
+- [Angular UI Bootstrap](http://angular-ui.github.io/bootstrap/)
+- [Stylus](http://learnboost.github.io/stylus/)
+- [Jade](http://jade-lang.com/) 
+- [Protractor](https://github.com/angular/protractor)
+- [Jasmine](http://jasmine.github.io/)
+- [Karma](http://karma-runner.github.io/)
+- [GulpJS](http://gulpjs.com/)
+- [BrowserSync](http://browsersync.io/)
